@@ -15,7 +15,7 @@ Inventory::Inventory(const Inventory& other) {
         p_pItems[i] = newItem;
     }
 }
-void Inventory::importInventoryFile(string file, Inventory& i) {
+void Inventory::importInventoryFile(string file) {
 
     ifstream fin;
     fin.open(file);
@@ -40,8 +40,60 @@ void Inventory::importInventoryFile(string file, Inventory& i) {
         getline(iss, token, '|');
         qty = stoi(token);
 
-        i.addItem(name, qty, cost); 
+        addNewItem(name, qty, cost); 
     }
+}
+void const Inventory::printInventory() {
+
+    cout << "Name of Equipment | Cost | Quantity" << endl;
+    for(int i = 0; i < count; i++) {
+
+        cout << p_pItems[i]->name << " | ";
+        cout << p_pItems[i]->cost << " | ";
+        cout << p_pItems[i]->qty;
+        cout << endl;
+    }
+}
+void Inventory::purchaseItem(string n, int q, Inventory& receipt, double& total) {
+
+    int indexLoc, indexLoc2;
+    indexLoc = receipt.searchItem(n);
+    indexLoc2 = searchItem(n);
+
+    if(indexLoc == -1)
+        receipt.addNewItem(n, q, p_pItems[indexLoc2]->cost);
+
+    total += (p_pItems[indexLoc2]->cost * 2);
+
+    subtractItem   (n, q);
+}
+void Inventory::addInventories(Inventory &i) {
+
+    if(count > i.count) {
+        int tempCount = i.count;
+        for(int j = 0; j < count; j++) {
+            int indexLoc = 0;
+            indexLoc = i.searchItem(p_pItems[j]->name);
+            if(indexLoc == -1) {}
+                // item is not present is &i inventory
+            else {p_pItems[j]->qty += i.p_pItems[indexLoc]->qty;}
+            
+
+        }
+
+    }
+
+}
+int Inventory::searchItem(const string searchName) {
+
+    int indexLoc = 0;
+    while(p_pItems[indexLoc]->name != searchName && indexLoc <= count) 
+        indexLoc++;
+
+    if(indexLoc > count)
+        indexLoc = -1;
+
+    return indexLoc;
 }
 void Inventory::resizeInventory(int newSize) {
 
@@ -57,7 +109,7 @@ void Inventory::resizeInventory(int newSize) {
     p_pItems = newItems;
     size = newSize;
 }
-void Inventory::addItem(string n, int q, float c) {
+void Inventory::addNewItem(string n, int q, float c) {
 
     Item *newItem = new Item;
     if(count >= size)
@@ -71,10 +123,31 @@ void Inventory::addItem(string n, int q, float c) {
 
     count++;
 }
+void Inventory::addItem(string n, int q) {
+
+    int indexLoc = 0;
+
+    indexLoc = searchItem(n);
+    p_pItems[indexLoc]->qty += q;
+}
 void Inventory::subtractItem(string n, int q) {
 
-    Item *blankItem = new Item;
+    int indexLoc = 0;
 
+    indexLoc = searchItem(n);
+    p_pItems[indexLoc]->qty -= q;
+
+    // if quantity of item is 0 item is removed from list
+    if(p_pItems[indexLoc]->qty <= 0) {
+        
+        delete p_pItems[indexLoc];
+        count--;
+
+        while(indexLoc < count) { // shift indexes to reduce count by 1
+            p_pItems[indexLoc] = p_pItems[indexLoc + 1];        
+            indexLoc++;
+        }
+    }
 }
 Inventory::~Inventory() {
 

@@ -1,6 +1,5 @@
-Name of equipment | Cost | Quantity
-Nike Basetball Shoes | 145.99 | 22
-Under Armour T-shirt | 29.99 | 33
-Brooks running shoes | 111.44 | 11
-Asics running shoes | 165.88 | 20
-Nike shorts | 45.77 | 77
+Nike Basetball Shoes|145.99|22
+Under Armour T-shirt|29.99|33
+Brooks running shoes|111.44|11
+Asics running shoes|165.88|20
+Nike shorts|45.77|77

@@ -2,6 +2,7 @@
 #define _INVENTORY_H
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -23,9 +24,15 @@ class Inventory {
         Inventory(int s) : size{s}, count{0}, p_pItems{new Item*[size]} {}
         Inventory(const Inventory& other);
 
-        void importInventoryFile(string file, Inventory& i);
+        void importInventoryFile(string file);
+        void const printInventory();
 
-        void addItem(string n, int q, float c);
+        void purchaseItem(string n, int q, Inventory& receipt, double& total);
+
+        int  searchItem(const string searchName);
+        void addInventories(Inventory &i);
+        void addNewItem(string n, int q, float c);
+        void addItem(string n, int q);
         void subtractItem(string n, int q);
 
         ~Inventory();
