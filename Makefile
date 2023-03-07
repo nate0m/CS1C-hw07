@@ -12,4 +12,4 @@ clean:
 	rm hw07 *.o
 
 tar:
-	tar cf hw07.tar hw07.scr Makefile hw07.cpp inventory.cpp inventory.h
+	tar cf hw07.tar hw07.scr Makefile hw07.cpp inventory.cpp inventory.h inventory.txt

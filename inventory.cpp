@@ -15,7 +15,7 @@ Inventory::Inventory(const Inventory& other) {
         p_pItems[i] = newItem;
     }
 }
-void Inventory::importInventoryFile(string file) {
+void Inventory::importInventoryFile(const string file) {
 
     ifstream fin;
     fin.open(file);
@@ -53,19 +53,20 @@ void const Inventory::printInventory() {
         cout << p_pItems[i]->qty;
         cout << endl;
     }
+    cout << endl;
 }
-void Inventory::purchaseItem(string n, int q, Inventory& receipt, double& total) {
+double Inventory::purchaseItem(const string n, const int q, Inventory& receipt) {
 
-    int indexLoc, indexLoc2;
-    indexLoc = receipt.searchItem(n);
-    indexLoc2 = searchItem(n);
+    int indexLoc;
+    double cost, total;
+    indexLoc = searchItem(n);
+    cost = p_pItems[indexLoc]->cost;
 
-    if(indexLoc == -1)
-        receipt.addNewItem(n, q, p_pItems[indexLoc2]->cost);
+    subtractItem(n, q);
 
-    total += (p_pItems[indexLoc2]->cost * 2);
+    receipt.addNewItem(n, q, cost);
 
-    subtractItem   (n, q);
+    return total = (cost * q);
 }
 void Inventory::addInventories(Inventory &i) {
 
@@ -95,7 +96,7 @@ int Inventory::searchItem(const string searchName) {
 
     return indexLoc;
 }
-void Inventory::resizeInventory(int newSize) {
+void Inventory::resizeInventory(const int newSize) {
 
     Item **newItems = new Item*[newSize];
     
@@ -109,7 +110,7 @@ void Inventory::resizeInventory(int newSize) {
     p_pItems = newItems;
     size = newSize;
 }
-void Inventory::addNewItem(string n, int q, float c) {
+void Inventory::addNewItem(const string n, const int q, const float c) {
 
     Item *newItem = new Item;
     if(count >= size)
@@ -123,14 +124,14 @@ void Inventory::addNewItem(string n, int q, float c) {
 
     count++;
 }
-void Inventory::addItem(string n, int q) {
+void Inventory::addItem(const string n, const int q) {
 
     int indexLoc = 0;
 
     indexLoc = searchItem(n);
     p_pItems[indexLoc]->qty += q;
 }
-void Inventory::subtractItem(string n, int q) {
+void Inventory::subtractItem(const string n, const int q) {
 
     int indexLoc = 0;
 
