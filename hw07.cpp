@@ -8,6 +8,7 @@
 // purchase items, creating a receipt with purchased items
 // add total cost of purchased items and print total
 //
+using namespace inv;
 int main() {
 
     // initalization of inventory, receipt, and total cost of purchase
@@ -30,15 +31,19 @@ int main() {
     total += inv.purchaseItem("Nike shorts", 5, receipt);
 
     // printing inventory and receipt
+    cout << "AFTER PURCHASE" << endl;
     inv.printInventory();
+    cout << "RECEIPT" << endl;
     receipt.printInventory();
 
     // calc total and print
     total = total + (total * .0825);
-    cout << "RECEIPT TOTAL: " << total << endl;
+    cout << "RECEIPT TOTAL: " << total << endl << endl;
 
-
-
+    // copy receipt into history and print
+    Inventory history(receipt);
+    cout << "HISTORY" << endl;
+    history.printInventory();
 
     return 0;
 }

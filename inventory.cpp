@@ -1,5 +1,5 @@
 #include "inventory.h"
-
+namespace inv {
 Inventory::Inventory(const Inventory& other) {
 
     count = other.count;
@@ -158,6 +158,7 @@ Inventory::~Inventory() {
     delete[] p_pItems;
 }
 
+}
 
 
 

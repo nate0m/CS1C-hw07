@@ -16,8 +16,8 @@ struct Item {
     int qty;
     float cost;
 };
-
-class Inventory {
+namespace inv {
+    class Inventory {
 
     public:
         Inventory() : count{0}, p_pItems{new Item*[size]} {} // PRE  | |
@@ -50,14 +50,15 @@ class Inventory {
         ~Inventory(); // destructor
 
     private:
-        int size{MAX_SIZE};
-        int count;
+        int size{MAX_SIZE}; // MAX_SIZE = 50
+        int count; // list count
         Item **p_pItems;
         // p->items[];
-        void resizeInventory(const int s);
+        void resizeInventory(const int s); // PRE  | s = new size (slot number) | 
+                                           // POST | Inventorys size increases to new size | only increased Inventory size | can not decrease Inventory size |
 
-};
-
+    };
+}
 
 
 #endif
