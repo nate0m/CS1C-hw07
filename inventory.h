@@ -28,7 +28,7 @@ namespace inv {
                                            // POST | invoking Inventory object == other |
 
         void importInventoryFile(const string file); // PRE  | file = file name ; see "inventory.txt" for format | 
-                                               // POST | invoking Inventory object is == to file items, quantity, cost |
+                                                     // POST | invoking Inventory object is == to file items, quantity, cost |
         void const printInventory(); // PRE  | invoking Inventory object has data in it |
                                      // POST | Inventory object is printed to console |
 
